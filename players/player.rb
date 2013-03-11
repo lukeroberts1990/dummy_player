@@ -1,16 +1,13 @@
-require 'my_helper'
 class Player
   def name
     "Llama"
   end
 
   def take_turn(state, guesses)
-    return available_vowels(guesses).shuffle.pop if (new_game?(state) || only_vowels?(state))
-    return available_vowels(guesses).shuffle.pop if consonant_count > vowel_count
-    return available_consonants(guesses).shuffle.pop if consonant_count < vowel_count
+    return available_vowels(guesses).shuffle.pop if (new_game?(state) || vowel_count(state).eql?(0))
+    return available_consonants(guesses).shuffle.pop if consonant_count(state) < vowel_count(state)
+    return available_vowels(guesses).shuffle.pop if consonant_count(state) > vowel_count(state)
   end
-
-  private
 
   def available_vowels(guesses)
     vowels - guesses
@@ -24,12 +21,12 @@ class Player
     state.gsub('_', '').empty?
   end
 
-  def vowels_count(state)
+  def vowel_count(state)
     state.gsub(/[^"#{vowels.join('')}"]/, '').length
   end
 
   def consonant_count(state)
-    state.gsub(/[#{vowels.join('')}]/, '').length
+    state.gsub(/[\_#{vowels.join('')}]/, '').length
   end
 
   def letters
