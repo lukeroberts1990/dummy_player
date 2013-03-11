@@ -1,5 +1,5 @@
 class Dictionary
-  def self.word(char)
+  def self.words(char)
     File.read(File.join(File.dirname(__FILE__), 'dictionary', "#{$1.upcase} Words.csv")).split("\n")
   end
 

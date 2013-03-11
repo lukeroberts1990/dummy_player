@@ -1,4 +1,4 @@
-require './letter_frequencies'
+require_relative './letter_frequencies'
 
 class Player
   def name
